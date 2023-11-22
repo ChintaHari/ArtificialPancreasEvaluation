@@ -1,0 +1,23 @@
+README
+
+Steps to Execute Code:
+1. Technological Pre-requisites: Python 3.6 to 3.8 (do not use 3.9), scikit-learn==0.21.2, pandas==0.25.1, Python pickle
+2. The 'main.py' file should be in same directory where the other input files (.csv files) are located.
+3. Run the 'main.py' code in any python supported IDE
+
+Detailed walkthrough for the code written:
+1. Read both the .csv files and load only the columns required for processing.
+2. Create a column in CGMData.csv which contains both Date and Time. This is required while calculating metrics by making this new column as an Index.
+3. Since the column 'Sensor Glucose (mg/dL)' in CGMData.csv contains empty values too, filter the data that contains non-empty values.
+4. Now in the InsulinData.csv, get the date where the earliest auto mode has been started.
+5. Using the above extracted date, Split the CGMData.CSV into Auto mode data and Manual Mode data. In these 2 data frames, we need to assign 'date_and_time' column as the new index as it is used to calculate and filter the metrics using group by Date.
+6. Extract only those dates for both Auto mode and Manual mode datas where the number of 5 minutes slots in a day are > 80% of the actual 288 5-minute slots.
+7. Now calculate all the metrics with the following conditions.
+	a. Percentage time in hyperglycemia (CGM > 180 mg/dL)
+	b. percentage of time in hyperglycemia critical (CGM > 250 mg/dL)
+	c. percentage time in range (CGM >= 70 mg/dL and CGM <= 180 mg/dL)
+	d. percentage time in range secondary (CGM >= 70 mg/dL and CGM <= 150 mg/dL)
+	e. percentage time in hypoglycemia level 1 (CGM < 70 mg/dL)
+	f. percentage time in hypoglycemia level 2 (CGM < 54 mg/dL)
+8. Calculate mean for all the metrics in Auto mode as well as Manual mode.
+9. Push the obtained results into a Results.csv file with no headers and index values.
